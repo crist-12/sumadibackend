@@ -5,7 +5,8 @@ const got = require('got');
 app.use(express.json())
 const body_parser = require('body-parser');
 app.use(body_parser.urlencoded({extended:true}));
-
+app.use(body_parser.json({limit: '50mb'}));
+app.use(body_parser.urlencoded({limit: '50mb', extended: true}));
 
 const apiKey = process.env.API_KEY
 const apiSecret = process.env.API_SECRET
