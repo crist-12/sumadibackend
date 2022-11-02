@@ -16,6 +16,10 @@ const { response } = require('express');
 let port = process.env.PORT || 3000;
 let uploadId;
 
+app.get('/',(req, res) => {
+    res.send('Hi world');
+})
+
 app.post('/uploadImage', (req, res)=> {
     
     const formData = new FormData();
