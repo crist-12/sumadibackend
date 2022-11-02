@@ -18,9 +18,8 @@ app.post('/uploadImage', (req, res)=> {
     
     const formData = new FormData();
     formData.append('image_base64', req.body.base64);
-    //console.log(got)
     (async () => {
-        try {
+        try { 
             const response = await got.post(ENDPOINT + 'uploads', {body: formData, username: apiKey, password: apiSecret});
             res.send(200,response.body)
         } catch (error) {
