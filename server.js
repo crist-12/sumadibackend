@@ -12,14 +12,16 @@ const apiSecret = process.env.API_SECRET
 const ENDPOINT = process.env.ENDPOINT
 
 const FormData = require('form-data');
+
 const port = process.env.PORT || 3000;
 
 app.post('/uploadImage', (req, res)=> {
     
     const formData = new FormData();
     formData.append('image_base64', req.body.base64);
+
     (async () => {
-        try { 
+        try {
             const response = await got.post(ENDPOINT + 'uploads', {body: formData, username: apiKey, password: apiSecret});
             res.send(200,response.body)
         } catch (error) {
@@ -29,18 +31,18 @@ app.post('/uploadImage', (req, res)=> {
 })
 
 app.post('/getTagging', (req, res)=> {
-    const urlend = ENDPOINT + 'tags?image_upload_id='+ req.body.imageid;
-    (async () => {
-        try {
-            const response = await got.get(urlend, {username: apiKey, password: apiSecret});
-            res.send(200,response.body)
-        } catch (error) {
-            res.send({name: error.name, type: error.code})
-        }
-    })();
+    const urlend = `${ENDPOINT}tags?image_upload_id=${req.body.imageid}`;
+   (async () => {
+    try {
+        const response = await got(urlend, {username: apiKey, password: apiSecret});
+        res.send(200,response.body)
+    } catch (error) {
+        res.send({name: error.name, type: error.code})
+    }
+})();
+   
 })
 
-
 app.listen(port, ()=> {
-    console.log('Hi'+port)
+    console.log('Listening on port'+port)
 })
